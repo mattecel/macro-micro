@@ -8,8 +8,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 // @material-ui/icons
+import PersonIcon from "@material-ui/icons/Person";
 import StorageIcon from "@material-ui/icons/Storage";
+import EditIcon from "@material-ui/icons/Edit";
+import CloseIcon from "@material-ui/icons/Close";
 // core components
+import Table from "components/Table/Table";
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
@@ -38,6 +42,17 @@ export default function RecipeInfoPage() {
     fetchRecipeInfo();
   }, []);
 
+  const fillButtons = [
+    { color: "success", icon: EditIcon },
+    { color: "danger", icon: CloseIcon },
+  ].map((prop, key) => {
+    return (
+      <Button justIcon size="sm" color={prop.color} key={key}>
+        <prop.icon />
+      </Button>
+    );
+  });
+
   const fetchRecipeInfo = () => {
     if (recipeInfo.length === 0) {
       axios
@@ -52,6 +67,22 @@ export default function RecipeInfoPage() {
   };
 
   if (isLoading) {
+    let ingredientTable = [];
+    const recipeIngredients = recipeInfo[0].extendedIngredients;
+    // grabbing recipe ingredient info
+    recipeIngredients.forEach((ingredient) => {
+      ingredientTable.push(ingredient.name);
+      ingredientTable.push(ingredient.amount);
+      ingredientTable.push(ingredient.unit);
+      ingredientTable.push(fillButtons);
+    });
+    let ingredientTableFormat = [];
+    while (ingredientTable.length > 0) {
+      let ingredientTableRow = ingredientTable.splice(0, 4);
+      ingredientTableFormat.push(ingredientTableRow);
+    }
+    console.log(`this is ingredient table info ${ingredientTableFormat}`);
+
     const recipe = recipeInfo[0];
     console.log(recipe.instructions);
     const recipeNutrients = recipeInfo[0].nutrition.nutrients;
@@ -105,18 +136,22 @@ export default function RecipeInfoPage() {
                       {
                         title: "Ingredients",
                         content: (
-                          <ul>
-                            <li>
-                              Storm and midnight-blue stretch cotton-blend
-                            </li>
-                            <li>
-                              Notch lapels, functioning buttoned cuffs, two
-                              front flap pockets, single vent, internal pocket
-                            </li>
-                            <li>Two button fastening</li>
-                            <li>84% cotton, 14% nylon, 2% elastane</li>
-                            <li>Dry clean</li>
-                          </ul>
+                          <Table
+                            tableHead={["Name", "Amount", "Unit", "Edit"]}
+                            tableData={ingredientTableFormat}
+                            customCellClasses={[
+                              classes.textCenter,
+                              classes.textRight,
+                              classes.textRight,
+                            ]}
+                            customClassesForCells={[0, 4, 5]}
+                            customHeadCellClasses={[
+                              classes.textCenter,
+                              classes.textRight,
+                              classes.textRight,
+                            ]}
+                            customHeadClassesForCells={[0, 4, 5]}
+                          />
                         ),
                       },
                       {
