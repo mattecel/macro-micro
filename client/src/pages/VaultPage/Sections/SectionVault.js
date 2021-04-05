@@ -41,6 +41,14 @@ export default function SectionVault() {
     localStorage.removeItem(index);
   };
 
+  const handleExport = () => {
+    let recipeIdArray = []
+    recipes.forEach((recipe) => {
+      recipeIdArray.push(recipe.id)
+    })
+    localStorage.setItem('grocerylist',JSON.stringify(recipeIdArray))
+  }
+
   const fixStrings = () => {
     let storedRecipes = grabStoredRecipes();
     let vaultRecipes = storedRecipes.map((recipe) => JSON.parse(recipe));
@@ -136,8 +144,8 @@ export default function SectionVault() {
                   md={8}
                   className={featClasses.mlAuto + " " + featClasses.mrAuto}
                 >
-                  <Link to="/recipes">
-                    <Button color="primary" round>
+                  <Link to="/grocery-list">
+                    <Button onClick={() => handleExport()} color="primary" round>
                       Export to Grocery List
                     </Button>
                   </Link>

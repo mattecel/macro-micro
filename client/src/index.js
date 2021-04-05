@@ -11,16 +11,18 @@ import RecipesPage from "pages/RecipesPage/RecipesPage";
 import LoginPage from "pages/LoginPage/LoginPage";
 import RecipeInfoPage from "pages/RecipeInfoPage/RecipeInfoPage";
 import VaultPage from "pages/VaultPage/VaultPage";
+import GroceryListPage from "pages/GroceryListPage/GroceryListPage";
 
 let hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-      <Route path="/recipes" exact component={RecipesPage} />
       <Route path="/login" component={LoginPage} />
+      <Route path="/recipes" exact component={RecipesPage} />
       <Route path="/recipes/:recipeId" component={RecipeInfoPage} />
       <Route path="/vault" component={VaultPage} />
+      <Route path="/grocery-list" component={GroceryListPage} />
       <Redirect path="/" to="/login" />
     </Switch>
   </Router>,

@@ -209,9 +209,11 @@ export default function RecipeInfoPage() {
                         Vault
                       </Button>
                     </Link>
-                    <Button color="primary" round>
-                      Discover more recipes
-                    </Button>
+                    <Link to="/recipes">
+                      <Button color="primary" round>
+                        Discover more recipes
+                      </Button>
+                    </Link>
                   </GridContainer>
                 </GridItem>
               </GridContainer>
