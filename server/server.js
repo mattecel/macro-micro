@@ -1,7 +1,7 @@
 // imports
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 const recipesRoute = require('./routes/recipes');
 const ingredientsRoute = require('./routes/ingredients');
 
