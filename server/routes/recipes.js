@@ -3,7 +3,6 @@ const ck = require("ckey");
 const { Router } = require("express");
 const express = require("express");
 const axios = require("axios");
-const fs = require("fs");
 
 // variables
 const recipesRouter = express.Router();
