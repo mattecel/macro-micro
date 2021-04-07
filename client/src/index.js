@@ -8,7 +8,7 @@ import "assets/scss/theme.scss?v=1.9.0";
 
 // pages for routes
 import RecipesPage from "pages/RecipesPage/RecipesPage";
-import LoginPage from "pages/LoginPage/LoginPage";
+import LoginPage from "./pages/LogInPage/LogInPage";
 import RecipeInfoPage from "pages/RecipeInfoPage/RecipeInfoPage";
 import VaultPage from "pages/VaultPage/VaultPage";
 import GroceryListPage from "pages/GroceryListPage/GroceryListPage";

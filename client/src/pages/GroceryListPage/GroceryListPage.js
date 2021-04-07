@@ -59,7 +59,6 @@ export default function GroceryListPage({ ...rest }) {
         })
         .then((response) => {
           setGroceryList(response.data);
-          console.log(groceryList);
           setIsLoaded(true);
         })
         .catch(() => {
@@ -83,14 +82,27 @@ export default function GroceryListPage({ ...rest }) {
     let gList = [];
     groceryList.forEach((recipe) => {
       recipe.extendedIngredients.forEach((ing) => {
-        gList.push(ing.name);
-        gList.push(ing.amount);
-        gList.push(ing.unit);
-        gList.push(fillButtons);
+        gList.push(ing.name, ing.amount);
+        if (ing.unit === "") {
+          ing.unit = "units";
+          gList.push(ing.unit, fillButtons);
+        } else {
+          gList.push(ing.unit, fillButtons);
+        }
       });
     });
-    console.log("Hello");
-    console.log(gList);
+    let gListTable = [];
+    while (gList.length > 0) {
+      let gListRow = gList.splice(0, 4);
+      gListTable.push(gListRow);
+    }
+    const half = Math.ceil(gListTable.length / 2);
+
+    const firstTable = gListTable.splice(0, half);
+    const secondTable = gListTable.splice(-half);
+
+    console.log(firstTable);
+    console.log(secondTable);
 
     return (
       <div>
@@ -116,8 +128,42 @@ export default function GroceryListPage({ ...rest }) {
                   <h2 className={classes.cardTitle}>Your Grocery List</h2>
                   <CardBody>
                     <GridContainer justify="center">
-                      <GridItem xs={12} sm={5} md={5}></GridItem>
-                      <GridItem xs={12} sm={5} md={5}></GridItem>
+                      <GridItem xs={12} sm={5} md={5}>
+                        <Table
+                          tableHead={["Name", "Amount", "Unit", "Edit"]}
+                          tableData={firstTable}
+                          customCellClasses={[
+                            classes.textCenter,
+                            classes.textRight,
+                            classes.textRight,
+                          ]}
+                          customClassesForCells={[0, 4, 5]}
+                          customHeadCellClasses={[
+                            classes.textCenter,
+                            classes.textRight,
+                            classes.textRight,
+                          ]}
+                          customHeadClassesForCells={[0, 4, 5]}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={5} md={5}>
+                        <Table
+                          tableHead={["Name", "Amount", "Unit", "Edit"]}
+                          tableData={secondTable}
+                          customCellClasses={[
+                            classes.textCenter,
+                            classes.textRight,
+                            classes.textRight,
+                          ]}
+                          customClassesForCells={[0, 4, 5]}
+                          customHeadCellClasses={[
+                            classes.textCenter,
+                            classes.textRight,
+                            classes.textRight,
+                          ]}
+                          customHeadClassesForCells={[0, 4, 5]}
+                        />
+                      </GridItem>
                     </GridContainer>
                   </CardBody>
                 </Card>
