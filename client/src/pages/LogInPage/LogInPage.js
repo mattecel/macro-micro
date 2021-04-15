@@ -54,7 +54,7 @@ export default function LoginPage() {
                     signup
                     className={classes.cardHeader}
                   >
-                    <h3 className={classes.cardTitle}>Micro-Macro</h3>
+                    <h3 className={classes.cardTitle}>Macro-Micro</h3>
                     <h4 className={classes.cardTitle}>Login</h4>
                     <div className={classes.socialLine}>
                       <Button
